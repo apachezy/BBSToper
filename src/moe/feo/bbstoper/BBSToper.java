@@ -1,6 +1,6 @@
 package moe.feo.bbstoper;
 
-import org.bstats.bukkit.Metrics;
+//import org.bstats.bukkit.Metrics;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -45,7 +45,7 @@ public class BBSToper extends JavaPlugin {
 				}
 			}.runTaskTimerAsynchronously(this, 0, period);
 		}
-		new Metrics(this);
+		//new Metrics(this);
 		this.getLogger().info(Message.ENABLE.getString());
 	}
 
