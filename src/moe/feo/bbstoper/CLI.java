@@ -2,6 +2,7 @@ package moe.feo.bbstoper;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -61,17 +62,31 @@ public class CLI implements TabExecutor {
 			}
 			return list;
 		}
+		else
 		if (args.length == 2) {
 			if (args[0].equalsIgnoreCase("check")) {
 				List<String> list = new ArrayList<>();
 				if (sender.hasPermission("bbstoper.check")) {
-					list.add("bbsid");
-					list.add("player");
+					String arg = args[1].toLowerCase();
+					if ("bbsid".startsWith(arg)) list.add("bbsid");
+					if ("player".startsWith(arg)) list.add("player");
 				}
 				return list;
 			}
+			else
+			if (args[0].equalsIgnoreCase("delete")) {
+				return null;
+			}
 		}
-		return null;
+		else
+		if (args.length == 3) {
+			if (args[0].equalsIgnoreCase("check") && args[1].equalsIgnoreCase("player")) {
+				if (sender.hasPermission("bbstoper.check")) {
+					return null;
+				}
+			}
+		}
+		return Collections.emptyList();
 	}
 
 	@Override

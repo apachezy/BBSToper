@@ -19,6 +19,7 @@ public class GUI {
 
 	public GUI(Player player) {
 		createGui(player);
+		Bukkit.getLogger().warning("创建guui");
 		Bukkit.getScheduler().runTask(BBSToper.getInstance(), () -> player.openInventory(inv));
 	}
 
@@ -61,7 +62,7 @@ public class GUI {
 		ItemStack sunflower = new ItemStack(Material.DOUBLE_PLANT);
 		ItemMeta sunflowermeta = sunflower.getItemMeta();
 		sunflowermeta.setDisplayName(Message.GUI_REWARDS.getString());
-		List<String> sunflowerlores = new ArrayList<String>(Message.GUI_REWARDSINFO.getStringList());// 自定义奖励信息
+		List<String> sunflowerlores = new ArrayList<>(Message.GUI_REWARDSINFO.getStringList());// 自定义奖励信息
 		if (sunflowerlores.isEmpty()) {// 如果没有自定义奖励信息
 			sunflowerlores = Option.REWARD_COMMANDS.getStringList();// 直接显示命令
 		}
@@ -87,11 +88,15 @@ public class GUI {
 		ItemStack compass = new ItemStack(Material.COMPASS);
 		ItemMeta compassmeta = compass.getItemMeta();
 		compassmeta.setDisplayName(Message.GUI_PAGESTATE.getString());
-		List<String> compasslores = new ArrayList<String>();
+		List<String> compasslores = new ArrayList<>();
 		compasslores.add(Message.GUI_PAGEID.getString().replaceAll("%PAGEID%", Option.MCBBS_URL.getString()));
 		Crawler crawler = new Crawler();
 		if (crawler.visible) {// 如果帖子可视，就获取帖子最近一次顶贴
-			compasslores.add(Message.GUI_LASTPOST.getString().replaceAll("%TIME%", crawler.Time.get(0)));
+			if (crawler.Time.size() > 0) { // 如果从没有人顶帖，就以“----”代替上次顶帖时间(原来不加判断直接get会报索引范围错误)
+				compasslores.add(Message.GUI_LASTPOST.getString().replaceAll("%TIME%", crawler.Time.get(0)));
+			} else {
+				compasslores.add(Message.GUI_LASTPOST.getString().replaceAll("%TIME%", "----"));
+			}
 		} else {
 			compasslores.add(Message.GUI_PAGENOTVISIBLE.getString());
 		}

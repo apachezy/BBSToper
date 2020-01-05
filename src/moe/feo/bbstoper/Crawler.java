@@ -17,8 +17,8 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 public class Crawler {
-	public List<String> ID = new ArrayList<String>();
-	public List<String> Time = new ArrayList<String>();
+	public List<String> ID = new ArrayList<>();
+	public List<String> Time = new ArrayList<>();
 	public boolean visible = true;
 
 	public Crawler() {
